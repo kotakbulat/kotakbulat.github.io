@@ -1,29 +1,46 @@
-
+/* styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@font-face {
+   font-family: 'MyFont';
+   src: url('/fonts/MyFont.otf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+ }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    /* Define base light theme colors and apply dark overrides */
+    @apply bg-gray-100 text-gray-800 transition-colors duration-300 ease-in-out;
+    @apply dark:bg-gray-900 dark:text-gray-200;
   }
+
+  /* Style scrollbars subtly (optional) */
+  ::-webkit-scrollbar {
+     width: 8px;
+     height: 8px; /* For horizontal scroll */
+  }
+  ::-webkit-scrollbar-track {
+     background: theme('colors.gray.200');
+     @apply dark:bg-gray-700;
+     border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+     background: theme('colors.gray.400');
+     @apply dark:bg-gray-500;
+     border-radius: 4px;
+     border: 2px solid theme('colors.gray.200'); /* Creates padding around thumb */
+      @apply dark:border-gray-700;
+  }
+   ::-webkit-scrollbar-thumb:hover {
+     background: theme('colors.gray.500');
+      @apply dark:bg-gray-400;
+   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Ensure html has height for some scroll effects if needed, though Lenis often handles this */
+/* html {
+  height: 100%;
+} */

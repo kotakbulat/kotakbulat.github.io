@@ -1,45 +1,59 @@
-// src/pages/_app.tsx (or pages/_app.tsx)
+// src/pages/_app.tsx
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-// Optional: Import Layout component if you use one
-// import Layout from '../components/Layout';
+import ThemeToggleButton from '../components/ThemeToggleButton';
 
-// Register GSAP ScrollTrigger plugin globally
+// Register GSAP Plugin
 gsap.registerPlugin(ScrollTrigger);
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // --- Theme State ---
+  const [theme, setTheme] = useState('dark'); // Default theme
 
-  // Lenis Smooth Scroll Effect
+  // Load theme from localStorage on initial mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const initialTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(initialTheme); // Set state based on saved or system preference
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // --- Lenis Smooth Scroll ---
   useEffect(() => {
     const lenis = new Lenis();
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
+    function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf); }
     const rafId = requestAnimationFrame(raf);
+    return () => { cancelAnimationFrame(rafId); lenis.destroy(); };
+  }, []);
 
-    // Cleanup on component unmount
-    return () => {
-      cancelAnimationFrame(rafId); // Cancel the frame request
-      lenis.destroy(); // Destroy the Lenis instance
-    };
-  }, []); // Empty dependency array ensures it runs only once
+  // --- Theme Toggle Function ---
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme); // Save preference
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
-  // Optional: Wrap with Layout
-  // return (
-  //   <Layout>
-  //      <Component {...pageProps} />
-  //   </Layout>
-  // )
-
-  // Without Layout
-  return <Component {...pageProps} />;
+  return (
+    <>
+      {/* Theme Toggle Button - Always visible */}
+      <ThemeToggleButton currentTheme={theme} toggleTheme={toggleTheme} />
+      {/* Render the current page */}
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default MyApp;

@@ -1,0 +1,124 @@
+// src/components/MagneticButton.tsx
+import React, { useRef, useEffect, ReactNode, useState } from 'react';
+import { gsap } from 'gsap';
+import { motion } from 'framer-motion';
+
+// Interface still defines the props the component accepts
+interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  className?: string;
+  pullForce?: number;
+  maxDistance?: number;
+  resetEase?: string;
+  pullEaseDuration?: number;
+  // Add other standard HTML attributes you might pass here if needed
+  id?: string;
+  'data-testid'?: string;
+}
+
+const MagneticButton: React.FC<MagneticButtonProps> = ({
+  children,
+  className = '',
+  pullForce = 0.5,
+  maxDistance = 70,
+  resetEase = 'elastic.out(1, 0.4)',
+  pullEaseDuration = 0.3,
+  // Destructure common, *non-conflicting* standard button attributes explicitly
+  onClick,
+  type = 'button', // Default type if not provided
+  disabled,
+  id, // Get id if passed
+  'data-testid': dataTestId, // Get data attributes if passed
+  'aria-label': ariaLabel, // Handle kebab-case attributes
+  // DO NOT capture or spread ...restProps here to avoid type conflicts
+  // ...restProps // <- REMOVED
+}) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const xTo = useRef<gsap.QuickToFunc | null>(null);
+  const yTo = useRef<gsap.QuickToFunc | null>(null);
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    if (!button) return;
+
+    xTo.current = gsap.quickTo(button, "x", { duration: pullEaseDuration, ease: "power2.out" });
+    yTo.current = gsap.quickTo(button, "y", { duration: pullEaseDuration, ease: "power2.out" });
+
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!button || !isHovering) return;
+      const { clientX, clientY } = event;
+      const { height, width, left, top } = button.getBoundingClientRect();
+      const centerX = left + width / 2;
+      const centerY = top + height / 2;
+      const deltaX = clientX - centerX;
+      const deltaY = clientY - centerY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      let targetX = 0;
+      let targetY = 0;
+      if (distance < maxDistance * 1.5) {
+          targetX = deltaX * pullForce;
+          targetY = deltaY * pullForce;
+      }
+      // console.log(`Mouse Move: dX=${deltaX.toFixed(1)}, dY=${deltaY.toFixed(1)}, tX=${targetX.toFixed(1)}, tY=${targetY.toFixed(1)}, hovering=${isHovering}`);
+      xTo.current?.(targetX);
+      yTo.current?.(targetY);
+    };
+
+    const handleMouseEnter = () => {
+      // console.log("Mouse Enter");
+      setIsHovering(true);
+      gsap.to(button, { scale: 1.05, duration: 0.2 });
+    };
+    const handleMouseLeave = () => {
+      // console.log("Mouse Leave");
+      setIsHovering(false);
+      gsap.to(button, { x: 0, y: 0, scale: 1, duration: 0.6, ease: resetEase });
+    };
+
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouchDevice) {
+        document.addEventListener('mousemove', handleMouseMove);
+        button.addEventListener('mouseenter', handleMouseEnter);
+        button.addEventListener('mouseleave', handleMouseLeave);
+    }
+    return () => {
+        if (!isTouchDevice) {
+            document.removeEventListener('mousemove', handleMouseMove);
+            if (button) {
+              button.removeEventListener('mouseenter', handleMouseEnter);
+              button.removeEventListener('mouseleave', handleMouseLeave);
+            }
+        }
+    };
+  }, [isHovering, pullForce, maxDistance, resetEase, pullEaseDuration]); // Dependencies are correct
+
+  // Create an object with ONLY the standard props we want to pass to the underlying button
+  // These are known to be safe and not conflict with motion props
+  const standardButtonProps = {
+      onClick,
+      type,
+      disabled,
+      id,
+      'data-testid': dataTestId,
+      'aria-label': ariaLabel,
+      // Add any OTHER standard attributes you absolutely need here (e.g., 'name', 'value')
+      // Avoid event handlers like onFocus, onBlur, onDrag, etc., unless you are sure they don't conflict.
+  };
+
+  return (
+    <motion.button
+      ref={buttonRef}
+      className={`relative inline-block overflow-visible ${className}`}
+      // Pass ONLY the curated standard props + necessary Framer Motion props
+      {...standardButtonProps} // Spread the SAFE standard props
+      // Keep Framer Motion specific props separate
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 15 }} // For tap effect
+    >
+      <span className="relative block pointer-events-none">{children}</span>
+    </motion.button>
+  );
+};
+
+export default MagneticButton;

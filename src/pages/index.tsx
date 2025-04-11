@@ -1,13 +1,31 @@
-// src/pages/index.tsx (or pages/index.tsx)
+// src/pages/index.tsx
 import Head from 'next/head';
+import Navbar from '../components/Navbar';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-// ScrollTrigger is already registered in _app.tsx
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
+// ScrollTrigger should be registered globally in _app.tsx or imported if not
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import MagneticLink from '../components/MagneticLink';
 
+gsap.registerPlugin(ScrollTrigger); 
+
+// --- Contact Details ---
+const contactDetails = {
+  email1: "hokicoc@mail.ugm.ac.id",
+  email2: "hokilimpahwijaya@gmail.com",
+  linkedin: "https://www.linkedin.com/in/hoki-wijaya-80528b144",
+  github: "https://github.com/kotakbulat",
+};
+
+// --- Component Start ---
 export default function Home() {
-  // --- Refs for GSAP targets ---
+  // --- Refs ---
   const heroContainerRef = useRef<HTMLDivElement>(null);
+  const scrollingTextContainerRef = useRef<HTMLDivElement>(null); // Container for the scrolling text
+  const scrollingTextRef = useRef<HTMLHeadingElement>(null);      // The H1 with repeated text
+  // Refs for GSAP section reveals
   const aboutSectionRef = useRef<HTMLDivElement>(null);
   const aboutHeadingRef = useRef<HTMLHeadingElement>(null);
   const aboutParagraphRef = useRef<HTMLParagraphElement>(null);
@@ -15,262 +33,275 @@ export default function Home() {
   const skillsHeadingRef = useRef<HTMLHeadingElement>(null);
   const featuredWorkSectionRef = useRef<HTMLDivElement>(null);
   const featuredWorkHeadingRef = useRef<HTMLHeadingElement>(null);
-  // Add more refs as needed for specific GSAP animations
 
-  // Example skills data
   const skills = ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Node.js', 'Framer Motion', 'Git'];
 
   // --- GSAP Animations ---
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // --- Hero Subtle Animation (Example: slight scale on scroll) ---
-      // This requires the hero section to potentially have elements that can move/scale
-      // gsap.to(heroElementsRef.current, { // Assuming you have refs to elements inside hero
-      //   scale: 1.1,
-      //   scrollTrigger: {
-      //     trigger: heroContainerRef.current,
-      //     start: 'top top',
-      //     end: 'bottom top',
-      //     scrub: true, // Smoothly animates based on scroll progress
-      //   }
-      // });
+    // --- Ensure ScrollTrigger is Registered ---
+    // Do this either here or preferably once globally in _app.tsx
+    // gsap.registerPlugin(ScrollTrigger); // Uncomment if not registered globally
 
-      // --- About Section Reveal ---
-      if (aboutSectionRef.current && aboutHeadingRef.current && aboutParagraphRef.current) {
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: aboutSectionRef.current,
-            start: 'top 80%', // Start animation when 80% of the section is visible
-            // markers: true, // for debugging
-            toggleActions: 'play none none reverse', // Play on enter, reverse if scrolled back up
-          }
-        })
-        .from(aboutHeadingRef.current, { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out' })
-        .from(aboutParagraphRef.current, { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' }, "-=0.5"); // Overlap previous animation slightly
+    // --- Constants for Scrolling Text Tuning ---
+    const SCROLL_VELOCITY_MULTIPLIER = 0.006;
+    const MAX_TEXT_SPEED = 2.5;
+    const TIMESCALE_SMOOTHING_DURATION = 0.2;
+    const IDLE_SLOWDOWN_DURATION = 0.5;
+
+    // Delay slightly for stable layout calculations
+    const timer = setTimeout(() => {
+      const textEl = scrollingTextRef.current;
+      const containerEl = heroContainerRef.current;
+
+      if (!textEl || !containerEl) {
+        console.warn("Hero elements for animations not found.");
+        return;
       }
 
-      // --- Skills Section Heading Reveal ---
-      if (skillsSectionRef.current && skillsHeadingRef.current) {
-        gsap.from(skillsHeadingRef.current, {
-          opacity: 0,
-          y: 50,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: skillsSectionRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+      // Scope GSAP animations for proper cleanup
+      const ctx = gsap.context(() => {
+
+        // --- Function to Setup Scrolling Text Animation ---
+        const setupScrollingText = () => {
+          gsap.set(textEl, { force3D: true });
+          let distanceToMove = textEl.offsetWidth / 2;
+
+          // Check if distance calculation is valid
+          if (!distanceToMove || distanceToMove <= 0) {
+            console.error("Scrolling text setup failed: Invalid distance", distanceToMove);
+            return null; // Indicate failure
           }
-        });
-      }
+          console.log("Setting up scrolling text, distance:", distanceToMove);
 
-       // --- Featured Work Section Heading Reveal ---
-       if (featuredWorkSectionRef.current && featuredWorkHeadingRef.current) {
-        gsap.from(featuredWorkHeadingRef.current, {
-          opacity: 0,
-          y: 50,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: featuredWorkSectionRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          }
-        });
-      }
+          const scrollTween = gsap.to(textEl, {
+            x: () => `-=${distanceToMove}`, // Use function for dynamic value on refresh
+            duration: 20,
+            ease: "none",
+            repeat: -1,
+            paused: true,
+            modifiers: {
+              x: gsap.utils.unitize(x => (parseFloat(x) % -distanceToMove) || 0) // Keep fallback just in case
+            },
+            invalidateOnRefresh: true
+          });
 
-      // Add more GSAP animations here...
+          const st = ScrollTrigger.create({
+            trigger: document.body,
+            start: "top top",
+            end: "bottom bottom",
+            onUpdate: (self) => {
+              const velocity = self.getVelocity() * SCROLL_VELOCITY_MULTIPLIER;
+              const targetTimeScale = gsap.utils.clamp(-MAX_TEXT_SPEED, MAX_TEXT_SPEED, velocity);
+              gsap.to(scrollTween, { timeScale: targetTimeScale, duration: TIMESCALE_SMOOTHING_DURATION, ease: "power1.out", overwrite: true });
+              if (Math.abs(velocity) < 0.05) {
+                gsap.to(scrollTween, { timeScale: 0, duration: IDLE_SLOWDOWN_DURATION, ease: "power1.out", overwrite: true });
+              }
+            }
+          });
 
-    }); // End GSAP context
+          // Return the tween and trigger for potential reference (though not strictly needed here)
+           if (scrollTween.timeScale() !== 0) scrollTween.play();
+           return { scrollTween, st };
+        };
 
-    // Cleanup function
-    return () => ctx.revert(); // Revert animations and kill triggers
-  }, []); // Run animations once on mount
+        // --- Attempt to Set Up Scrolling Text (with Retry) ---
+        let scrollAnimation = setupScrollingText(); // Initial attempt
+        if (!scrollAnimation) {
+          console.log("Initial distance calculation failed, retrying...");
+          gsap.delayedCall(0.3, () => { // Wait a bit longer
+              scrollAnimation = setupScrollingText(); // Retry attempt
+              if (!scrollAnimation) {
+                  console.error("Scrolling text animation aborted after retry.");
+              }
+          });
+        }
 
-  // --- Framer Motion Variants ---
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
+         // --- Recalculate distance on resize ---
+         // Moved listener setup outside the setup function to avoid duplicates
+         const handleRefresh = () => {
+             if(textEl && textEl.offsetWidth) {
+                 let distanceToMove = textEl.offsetWidth / 2;
+                  console.log("Recalculated distance on refresh:", distanceToMove);
+             }
+         }
+         ScrollTrigger.addEventListener("refreshInit", handleRefresh);
 
-  const staggerContainer = {
-    hidden: { opacity: 1 }, // Container itself is visible
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1, // Delay between children animations
-      },
-    },
-  };
 
-  const skillItemVariant = {
-     hidden: { opacity: 0, scale: 0.8 },
-     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-  };
+        // --- Setup Other Section Reveal Animations ---
+        // About Section
+        if (aboutSectionRef.current && aboutHeadingRef.current && aboutParagraphRef.current) {
+          gsap.timeline({ scrollTrigger: { trigger: aboutSectionRef.current, start: 'top 80%', toggleActions: 'play none none reverse' } })
+            .from(aboutHeadingRef.current, { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out' })
+            .from(aboutParagraphRef.current, { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' }, "-=0.5");
+        }
+        // Skills Section Heading
+        if (skillsSectionRef.current && skillsHeadingRef.current) {
+          gsap.from(skillsHeadingRef.current, { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: skillsSectionRef.current, start: 'top 85%', toggleActions: 'play none none reverse' } });
+        }
+        // Featured Work Section Heading
+        if (featuredWorkSectionRef.current && featuredWorkHeadingRef.current) {
+          gsap.from(featuredWorkHeadingRef.current, { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: featuredWorkSectionRef.current, start: 'top 85%', toggleActions: 'play none none reverse' } });
+        }
 
-  const featuredCardVariant = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+      }, containerEl); // Scope context
 
+      // Cleanup GSAP context on unmount
+      return () => {
+        console.log("Reverting GSAP context for Home page");
+        ctx.revert();
+        // Also remove the specific listener if added outside context scope
+        // ScrollTrigger.removeEventListener("refreshInit", handleRefresh); // Usually ctx.revert() handles this
+      };
+    }, 150); // Delay
+
+    // Cleanup the timeout itself
+    return () => clearTimeout(timer);
+  }, []);
+ // Run animations once on mount
+
+  // --- Framer Motion Variants (Used for list items, hover effects etc.) ---
+  const staggerContainer = { hidden: { opacity: 1 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
+  const skillItemVariant = { hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } } };
+  const featuredCardVariant = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+  // Can use sectionVariants for Framer Motion based section reveals if not using GSAP for them
+  const sectionVariants = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } };
+
+  // --- Component Render ---
   return (
     <>
+      <Navbar /> {/* Include Navbar component */}
+      {/* --- Head Section --- */}
       <Head>
-        <title>Your Name - Creative Developer</title>
-        <meta name="description" content="Personal portfolio showcasing skills and projects." />
+        <title>Hoki Wijaya - Creative Developer</title>
+        <meta name="description" content="Personal portfolio showcasing skills and projects of Hoki Wijaya." />
       </Head>
 
-      {/* Hero Section */}
+      {/* --- Hero Section --- */}
       <section
         ref={heroContainerRef}
-        className="h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white overflow-hidden px-4 relative"
+        className="h-screen flex flex-row items-center justify-center text-center bg-gray-400 dark:bg-gray-600 text-white overflow-hidden px-4 relative"
       >
-        {/* Add background elements for potential parallax here if desired */}
-        <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 z-10"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        {/* Scrolling Text Background */}
+        <div
+          ref={scrollingTextContainerRef}
+          className="absolute inset-x-0 top-3/4 -translate-y-1/2 z-30 pointer-events-none" // Positioned center, behind content
+          style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}
         >
-          Your Name
-        </motion.h1>
+          <h1
+            ref={scrollingTextRef}
+            className="text-[14vw] md:text-[12vw] lg:text-[14vw] font-custom text-white/90 dark:text-white/60 select-none inline-block"
+            style={{ transform: 'translateZ(0)', willChange: 'transform' }} // Performance hints
+          >
+            {/* Ensure two identical halves for seamless loop */}
+            Hoki Limpah Wijaya - Hoki Limpah Wijaya - Hoki Limpah Wijaya - {/* (Unit 1) (Unit 2) */}
+          </h1>
+        </div>
+
+        {/* Picture - Top Layer */}
+        <div className="relative flex justify-center items-center mt-11 z-10 gap-10">
+          <img
+            src="/images/picture.png" // Replace with actual image path
+            alt="Hoki Limpah Wijaya"
+            className="max-h-[80vh] md:max-h-[60vh] lg:max-h-[150vh] w-auto"
+          />
+        </div>
+
+        {/* Foreground Hero Content */}
         <motion.p
-          className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 z-10"
-          initial={{ opacity: 0 }}
+          className="absolute left-2/3 translate-x-6 text-left z-30 text-gray-100 font-custom dark:text-gray-300 text-2xl md:text-4xl lg:text-2xl leading-relaxed"                // Ensure z-10
+          initial={{ opacity: 0.8 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          Creative Developer | Designer | Problem Solver
+          <svg className="w-10 h-10 text-white transform rotate-[-45deg]" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+          
+            Vibe Developer <br />
+            AI and Web3 Enthusiast
+          
         </motion.p>
-        {/* Animated Scroll Down Arrow (Example) */}
+
+        {/* Scroll Down Arrow */}
         <motion.div
-           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10"
-           initial={{ opacity: 0, y: -10 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ delay: 1.2, duration: 0.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10" // Ensure z-10
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+           <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
+                <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+           </motion.div>
+        </motion.div>
+      </section>
+      {/* --- End Hero Section --- */}
+
+      {/* --- Featured Work Teaser --- */}
+      <section ref={featuredWorkSectionRef} id="featured-work" className="container mx-auto py-24 md:py-32 px-6 md:px-10 lg:px-4">
+        <h2 ref={featuredWorkHeadingRef} className="text-4xl md:text-5xl font-custom font-bold mb-16 text-center text-gray-800 dark:text-gray-100">Featured Projects</h2>
+        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
+          {[1, 2, 3].map((item) => ( // Placeholder Data
+             <motion.div key={item} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center h-64 flex flex-col justify-center items-center border border-gray-200 dark:border-gray-700" variants={featuredCardVariant} whileHover={{ scale: 1.03, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' }}>
+                <h3 className="text-2xl font-semibold font-custom mb-3 text-gray-900 dark:text-white">Featured Project {item}</h3>
+                <p className="text-gray-500 font-custom dark:text-gray-400">A short teaser description.</p>
+             </motion.div>
+          ))}
+        </motion.div>
+        <motion.div className="text-center mt-16" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.5 }}>
+          {/*<MagneticButton className="inline-block bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300 shadow-md hover:shadow-lg" onClick={() => window.location.href = '/portfolio'}> See All My Work </MagneticButton>*/}
+          <MagneticLink href='/portfolio' target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm"> See All My Work </MagneticLink>
         </motion.div>
       </section>
 
-      {/* About Section */}
+
+      {/* --- About Section --- */}
       <section ref={aboutSectionRef} id="about" className="container mx-auto py-24 md:py-32 px-6 md:px-10 lg:px-4">
-        <h2 ref={aboutHeadingRef} className="text-4xl md:text-5xl font-bold mb-10 text-center text-gray-100">About Me</h2>
-        <p ref={aboutParagraphRef} className="max-w-3xl mx-auto text-lg md:text-xl text-center leading-relaxed text-gray-300">
-          Passionate about building beautiful, interactive, and performant web experiences.
-          I thrive on challenges and constantly seek to learn and improve my skills.
-          {/* Add more about yourself */}
+        <h2 ref={aboutHeadingRef} className="text-4xl md:text-5xl font-bold font-custom mb-10 text-center text-gray-800 dark:text-gray-100">About Me</h2>
+        <p ref={aboutParagraphRef} className="max-w-3xl mx-auto text-lg md:text-xl text-center font-custom leading-relaxed text-gray-600 dark:text-gray-300">
+          Passionate about building beautiful, interactive, and performant web experiences...
         </p>
       </section>
 
-      {/* Skills Section */}
-      <section ref={skillsSectionRef} id="skills" className="bg-gray-800 py-24 md:py-32 px-6 md:px-10 lg:px-4">
-        <h2 ref={skillsHeadingRef} className="text-4xl md:text-5xl font-bold mb-16 text-center text-gray-100">My Tech Stack</h2>
+
+      {/* --- Contact/CTA Section --- */}
+       {/* Added ref for potential GSAP reveal */}
+       <motion.section ref={/* contactSectionRef - declare ref if using GSAP */ null} id="contact" className="bg-gradient-to-t from-gray-200 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-24 md:py-32 px-6 text-center" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants}>
+        <h2 ref={/* contactHeadingRef - declare ref if using GSAP */ null} className="text-4xl md:text-5xl font-custom font-bold mb-6 text-gray-800 dark:text-gray-100">Get In Touch</h2>
+        <p ref={/* contactParagraphRef - declare ref if using GSAP */ null} className="mb-10 text-lg md:text-xl text-gray-600 font-custom dark:text-gray-300 max-w-2xl mx-auto"> I'm always open to discussing new projects, creative ideas, or opportunities. Let's connect! </p>
+        {/* Consider wrapping buttons in motion.div for stagger if using Framer Motion reveal */}
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+        <MagneticLink href={`mailto:${contactDetails.email1}`} className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm" pullContainerForce={0.3} pullTextForce={0.5}> Email (UGM) {/* Icon removed, add if desired inside */} </MagneticLink>
+        <MagneticLink href={`mailto:${contactDetails.email2}`} className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm"> Email (Personal) </MagneticLink>
+        <MagneticLink href={contactDetails.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm"> LinkedIn </MagneticLink>
+        <MagneticLink href={contactDetails.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm" > GitHub </MagneticLink>
+        </div>
+         <motion.div className="mt-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+             <a href="/experience" className="text-blue-600 font-custom dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors"> View Detailed Experience / CV </a>
+         </motion.div>
+      </motion.section>
+
+
+      {/* --- Skills Section --- */}
+      <section ref={skillsSectionRef} id="skills" className="bg-gray-200 dark:bg-gray-800 py-24 md:py-32 px-6 md:px-10 lg:px-4">
+        <h2 ref={skillsHeadingRef} className="text-4xl md:text-5xl font-bold font-custom mb-16 text-center text-gray-800 dark:text-gray-100">My Tech Stack</h2>
         <motion.div
           className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 text-center"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible" // Trigger stagger animation when container is in view
-          viewport={{ once: true, amount: 0.2 }} // amount determines how much needs to be visible
-        >
+          variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+         >
           {skills.map((skill) => (
-            <motion.div
-              key={skill}
-              className="p-4 md:p-6 bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-              variants={skillItemVariant} // Use the defined variant for children
-              whileHover={{ scale: 1.05, y: -3, backgroundColor: 'rgb(75 85 99)' }} // Hover effect from Framer Motion
-            >
-              {/* Add icons here if desired */}
-              <span className="text-base md:text-lg font-medium text-gray-200">{skill}</span>
+            <motion.div key={skill} className="p-4 md:p-6 bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300" variants={skillItemVariant} whileHover={{ scale: 1.05, y: -3 }}>
+              <span className="text-base md:text-lg font-medium font-custom text-gray-700 dark:text-gray-200">{skill}</span>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
-      {/* Featured Work Teaser */}
-      <section ref={featuredWorkSectionRef} id="featured-work" className="container mx-auto py-24 md:py-32 px-6 md:px-10 lg:px-4">
-        <h2 ref={featuredWorkHeadingRef} className="text-4xl md:text-5xl font-bold mb-16 text-center text-gray-100">Featured Projects</h2>
-        {/* Use Framer Motion for stagger reveal of placeholder cards */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          {/* --- Replace with actual featured project data/component --- */}
-          {[1, 2, 3].map((item) => (
-             <motion.div
-                key={item}
-                className="bg-gray-800 rounded-lg shadow-lg p-6 text-center h-64 flex flex-col justify-center items-center" // Placeholder style
-                variants={featuredCardVariant}
-                whileHover={{ scale: 1.03, boxShadow: '0 10px 20px rgba(0,0,0,0.3)' }}
-             >
-                <h3 className="text-2xl font-semibold mb-3 text-white">Featured Project {item}</h3>
-                <p className="text-gray-400">A short teaser description.</p>
-                 {/* Add placeholder image/visual later */}
-             </motion.div>
-          ))}
-          {/* --- End Placeholder --- */}
-        </motion.div>
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }} // Delay slightly after cards might appear
-        >
-          <motion.a
-            href="/portfolio"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-md hover:shadow-lg"
-            whileHover={{ scale: 1.05, y: -2 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-          >
-            See All My Work
-          </motion.a>
-        </motion.div>
-      </section>
+      
 
-      {/* Contact/CTA Section */}
-      <motion.section
-        id="contact"
-        className="bg-gradient-to-t from-gray-900 to-gray-800 py-24 md:py-32 px-6 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeIn} // Simple fade-in for the whole section container
-      >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-100">Get In Touch</h2>
-        <p className="mb-10 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-          I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-        </p>
-        <div className="space-x-4">
-          <motion.a
-            href="mailto:your.email@example.com"
-            className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 shadow hover:shadow-md"
-            whileHover={{ scale: 1.05, y: -2 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-          >
-            Email Me
-          </motion.a>
-          {/* Add LinkedIn, GitHub Links with similar motion wrappers */}
-          <motion.a
-            href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer"
-            className="inline-block bg-gray-600 hover:bg-gray-500 text-white font-medium py-3 px-6 rounded-lg transition duration-300 shadow hover:shadow-md"
-            whileHover={{ scale: 1.05, y: -2 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-          >
-            GitHub
-          </motion.a>
-        </div>
-      </motion.section>
+       
 
-      {/* Basic Footer (can be moved to Layout component) */}
-      <footer className="text-center py-8 bg-gray-900 text-gray-500 text-sm">
-        © {new Date().getFullYear()} Your Name. All Rights Reserved.
+      {/* --- Footer --- */}
+      <footer className="text-center py-8 bg-gray-200 dark:bg-gray-900 text-gray-600 dark:text-gray-500 text-sm">
+        © {new Date().getFullYear()} Hoki Wijaya. Reference by dennissnellenberg
       </footer>
     </>
   );
-}
+} // End of Home Component
