@@ -10,7 +10,15 @@ interface ProjectCardProps { repo: Repo; }
 // --- Framer Motion Variant ---
 const cardVariant = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.6, 0.05, -0.01, 0.9] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut' // <<< USE A STANDARD EASE
+    }
+  },
 };
 
 const ProjectCard = ({ repo }: ProjectCardProps) => {
