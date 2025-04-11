@@ -26,7 +26,7 @@ interface PortfolioProps {
 
 // Interface matching the relevant parts of the raw GitHub API response
 // Needed because the API response has more fields than our final 'Repo' interface
-interface GitHubRepoAPIResponse {
+{/*interface GitHubRepoAPIResponse {
     id: number;
     name: string;
     description: string | null;
@@ -35,7 +35,7 @@ interface GitHubRepoAPIResponse {
     topics?: string[]; // Topics array might be missing
     fork: boolean;    // Property used for filtering
     // Add other fields here if needed for filtering/sorting (e.g., pushed_at, stargazers_count)
-}
+}*/}
 
 // Props for the Portfolio page component
 interface PortfolioProps {
