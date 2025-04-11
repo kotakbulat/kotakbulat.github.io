@@ -8,6 +8,7 @@ import { gsap } from 'gsap';
 // ScrollTrigger should be registered globally in _app.tsx or imported if not
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
+import Link from 'next/link';
 import MagneticLink from '../components/MagneticLink';
 
 gsap.registerPlugin(ScrollTrigger); 
@@ -280,7 +281,7 @@ export default function Home() {
         <MagneticLink href={contactDetails.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm" > GitHub </MagneticLink>
         </div>
          <motion.div className="mt-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-             <link href="/experience" className="text-blue-600 font-custom dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors"> View Detailed Experience / CV </link>
+             <Link href="/experience" className="text-blue-600 font-custom dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors"> View Detailed Experience / CV </Link>
          </motion.div>
       </motion.section>
 
