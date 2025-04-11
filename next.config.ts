@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  //swcMinify: true,
 
   // --- GitHub Pages Configuration for Root ---
   output: 'export', // Keep for static export

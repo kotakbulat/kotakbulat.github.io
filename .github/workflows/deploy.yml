@@ -41,7 +41,7 @@ jobs:
         env:
           # Pass the GitHub token needed for fetching repos in getStaticProps
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USERNAME: your-github-username # Replace with your actual username or use a secret
+          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }} # Replace with your actual username or use a secret
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
