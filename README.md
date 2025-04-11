@@ -1,3 +1,11 @@
+Flow Update add new project in web
+- add project tag "portfolio"
+- add cover picture (add snippet for default picture later)
+- re-run the publish
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 ## Getting Started
