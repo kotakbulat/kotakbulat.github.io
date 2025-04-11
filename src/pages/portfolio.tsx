@@ -212,7 +212,7 @@ export const getStaticProps: GetStaticProps<PortfolioProps> = async () => {
            repos: finalRepos,
        },
        // Incremental Static Regeneration (ISR) Configuration
-       revalidate: 3600, // Re-generate the page in the background at most once per hour (3600 seconds)
+       //revalidate: 3600, // Re-generate the page in the background at most once per hour (3600 seconds)
        // Use 'false' for pure SSG (only rebuild on new deployment)
        // Use a smaller number (e.g., 60) for more frequent updates, but consider build server load/costs
    };
