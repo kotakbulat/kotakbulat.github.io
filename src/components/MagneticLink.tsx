@@ -26,7 +26,6 @@ const MagneticLink: React.FC<MagneticLinkProps> = ({
   rel,
   'aria-label': ariaLabel,
   // Capture rest, but be cautious spreading unknown props to motion.a
-  ...restProps
 }) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const textRef = useRef<HTMLSpanElement>(null); // Ref for the inner text span

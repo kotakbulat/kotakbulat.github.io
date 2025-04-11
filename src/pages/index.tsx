@@ -4,9 +4,10 @@ import Navbar from '../components/Navbar';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { EnvelopeIcon } from '@heroicons/react/24/outline';
+// import { EnvelopeIcon } from '@heroicons/react/24/outline';
 // ScrollTrigger should be registered globally in _app.tsx or imported if not
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import Image from 'next/image';
 import MagneticLink from '../components/MagneticLink';
 
 gsap.registerPlugin(ScrollTrigger); 
@@ -64,7 +65,7 @@ export default function Home() {
         // --- Function to Setup Scrolling Text Animation ---
         const setupScrollingText = () => {
           gsap.set(textEl, { force3D: true });
-          let distanceToMove = textEl.offsetWidth / 2;
+          const distanceToMove = textEl.offsetWidth / 2;
 
           // Check if distance calculation is valid
           if (!distanceToMove || distanceToMove <= 0) {
@@ -120,7 +121,7 @@ export default function Home() {
          // Moved listener setup outside the setup function to avoid duplicates
          const handleRefresh = () => {
              if(textEl && textEl.offsetWidth) {
-                 let distanceToMove = textEl.offsetWidth / 2;
+                 const distanceToMove = textEl.offsetWidth / 2;
                   console.log("Recalculated distance on refresh:", distanceToMove);
              }
          }
@@ -199,10 +200,15 @@ export default function Home() {
 
         {/* Picture - Top Layer */}
         <div className="relative flex justify-center items-center mt-11 z-10 gap-10">
-          <img
-            src="/images/picture.png" // Replace with actual image path
+        <Image
+            src="/images/picture.png" // Assuming image is in public/images
             alt="Hoki Limpah Wijaya"
-            className="max-h-[80vh] md:max-h-[60vh] lg:max-h-[150vh] w-auto"
+            width={500} // Provide base width estimate
+            height={800} // Provide base height estimate
+            layout="intrinsic" // Keeps aspect ratio, shrinks but doesn't grow beyond base
+            className="max-h-[80vh] md:max-h-[60vh] lg:max-h-[150vh] w-auto" // Keep CSS constraints
+            priority={true} // Mark as LCP element
+            unoptimized={true} // Likely needed for static export
           />
         </div>
 
@@ -265,7 +271,7 @@ export default function Home() {
        {/* Added ref for potential GSAP reveal */}
        <motion.section ref={/* contactSectionRef - declare ref if using GSAP */ null} id="contact" className="bg-gradient-to-t from-gray-200 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-24 md:py-32 px-6 text-center" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants}>
         <h2 ref={/* contactHeadingRef - declare ref if using GSAP */ null} className="text-4xl md:text-5xl font-custom font-bold mb-6 text-gray-800 dark:text-gray-100">Get In Touch</h2>
-        <p ref={/* contactParagraphRef - declare ref if using GSAP */ null} className="mb-10 text-lg md:text-xl text-gray-600 font-custom dark:text-gray-300 max-w-2xl mx-auto"> I'm always open to discussing new projects, creative ideas, or opportunities. Let's connect! </p>
+        <p ref={/* contactParagraphRef - declare ref if using GSAP */ null} className="mb-10 text-lg md:text-xl text-gray-600 font-custom dark:text-gray-300 max-w-2xl mx-auto"> I&apos;m always open to discussing new projects, creative ideas, or opportunities. Let&apos;s connect! </p>
         {/* Consider wrapping buttons in motion.div for stagger if using Framer Motion reveal */}
         <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
         <MagneticLink href={`mailto:${contactDetails.email1}`} className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm" pullContainerForce={0.3} pullTextForce={0.5}> Email (UGM) {/* Icon removed, add if desired inside */} </MagneticLink>
@@ -274,7 +280,7 @@ export default function Home() {
         <MagneticLink href={contactDetails.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm" > GitHub </MagneticLink>
         </div>
          <motion.div className="mt-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-             <a href="/experience" className="text-blue-600 font-custom dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors"> View Detailed Experience / CV </a>
+             <link href="/experience" className="text-blue-600 font-custom dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors"> View Detailed Experience / CV </link>
          </motion.div>
       </motion.section>
 
