@@ -10,6 +10,10 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
 import MagneticLink from '../components/MagneticLink';
+import { GetStaticProps } from 'next'; // <-- Import GetStaticProps
+import { fetchPortfolioRepos } from '../lib/github'; // <-- Import shared fetch function
+import type { Repo } from '../lib/github'; // <-- Import Repo type
+import ProjectCard from '../components/ProjectCard'; // <-- Import ProjectCard
 
 gsap.registerPlugin(ScrollTrigger); 
 
@@ -21,13 +25,18 @@ const contactDetails = {
   github: "https://github.com/kotakbulat",
 };
 
+// --- Props Interface for Home component ---
+interface HomeProps {
+  featuredRepos: Repo[]; // Add prop for featured repositories
+}
+
+
 // --- Component Start ---
-export default function Home() {
-  // --- Refs ---
+export default function Home({ featuredRepos }: HomeProps) { // <-- Add featuredRepos prop
+  // --- Refs (keep as is) ---
   const heroContainerRef = useRef<HTMLDivElement>(null);
-  const scrollingTextContainerRef = useRef<HTMLDivElement>(null); // Container for the scrolling text
-  const scrollingTextRef = useRef<HTMLHeadingElement>(null);      // The H1 with repeated text
-  // Refs for GSAP section reveals
+  const scrollingTextContainerRef = useRef<HTMLDivElement>(null);
+  const scrollingTextRef = useRef<HTMLHeadingElement>(null);
   const aboutSectionRef = useRef<HTMLDivElement>(null);
   const aboutHeadingRef = useRef<HTMLHeadingElement>(null);
   const aboutParagraphRef = useRef<HTMLParagraphElement>(null);
@@ -37,6 +46,7 @@ export default function Home() {
   const featuredWorkHeadingRef = useRef<HTMLHeadingElement>(null);
 
   const skills = ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Node.js', 'Framer Motion', 'Git'];
+
 
   // --- GSAP Animations ---
   useEffect(() => {
@@ -241,20 +251,31 @@ export default function Home() {
       </section>
       {/* --- End Hero Section --- */}
 
-      {/* --- Featured Work Teaser --- */}
+       {/* --- Featured Work Teaser --- */}
       <section ref={featuredWorkSectionRef} id="featured-work" className="container mx-auto py-24 md:py-32 px-6 md:px-10 lg:px-4">
         <h2 ref={featuredWorkHeadingRef} className="text-4xl md:text-5xl font-custom font-bold mb-16 text-center text-gray-800 dark:text-gray-100">Featured Projects</h2>
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
-          {[1, 2, 3].map((item) => ( // Placeholder Data
-             <motion.div key={item} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center h-64 flex flex-col justify-center items-center border border-gray-200 dark:border-gray-700" variants={featuredCardVariant} whileHover={{ scale: 1.03, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' }}>
-                <h3 className="text-2xl font-semibold font-custom mb-3 text-gray-900 dark:text-white">Featured Project {item}</h3>
-                <p className="text-gray-500 font-custom dark:text-gray-400">A short teaser description.</p>
-             </motion.div>
-          ))}
-        </motion.div>
-        <motion.div className="text-center mt-16" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.5 }}>
-          {/*<MagneticButton className="inline-block bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300 shadow-md hover:shadow-lg" onClick={() => window.location.href = '/portfolio'}> See All My Work </MagneticButton>*/}
-          <MagneticLink href='/portfolio' target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm"> See All My Work </MagneticLink>
+        {/* --- Use fetched data --- */}
+        {featuredRepos && featuredRepos.length > 0 ? (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" // Ensure ProjectCard looks good in this grid
+            variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
+          >
+            {featuredRepos.map((repo) => (
+               // Use ProjectCard component here
+               // Wrap ProjectCard in motion.div if you want individual item animations
+               <motion.div key={repo.id} variants={featuredCardVariant}>
+                  <ProjectCard repo={repo} />
+               </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+           // Optional: Message if no featured repos found (e.g., if fetch failed or filtering resulted in none)
+           <p className="text-center text-gray-600 dark:text-gray-400">Featured projects coming soon!</p>
+        )}
+        {/* --- End fetched data section --- */}
+
+        <motion.div className="text-center mt-16" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}>
+          <MagneticLink href='/portfolio' /* Remove target blank if not needed */ className="inline-flex items-center bg-gray-800 font-custom dark:bg-gray-700 text-white font-medium shadow hover:shadow-md text-sm"> See All My Work </MagneticLink>
         </motion.div>
       </section>
 
@@ -312,3 +333,24 @@ export default function Home() {
     </>
   );
 } // End of Home Component
+
+// --- getStaticProps for Index Page ---
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  console.log("Index getStaticProps: Calling shared fetch function...");
+
+  const allRepos = await fetchPortfolioRepos();
+
+  // Select the first 3 projects (or adjust logic as needed)
+  // Since the fetch sorts by 'pushed', these will be the most recently updated
+  const featuredRepos = allRepos.slice(0, 3);
+
+  console.log(`Index getStaticProps: Selected ${featuredRepos.length} featured repos.`);
+
+  return {
+      props: {
+          featuredRepos: featuredRepos,
+      },
+      // Optional: Add revalidate time if needed for index page
+      // revalidate: 3600,
+  };
+};

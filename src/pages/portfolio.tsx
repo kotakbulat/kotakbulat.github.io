@@ -4,11 +4,17 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import ProjectCard from '../components/ProjectCard'; // Ensure this component uses repo.cover_image_url
 import Navbar from '../components/Navbar'; // Assuming Navbar is used, adjust path if needed
+import { fetchPortfolioRepos } from '../lib/github';
+import type { Repo } from '../lib/github';
 
 // --- Interfaces ---
 
+interface PortfolioProps {
+  repos: Repo[];
+}
+
 // Interface for the final data structure used by the Portfolio component
-interface Repo {
+{/*interface Repo {
   id: number;
   name: string;
   description: string | null;
@@ -16,7 +22,7 @@ interface Repo {
   homepage: string | null; // Live demo URL from GitHub 'Website' field
   topics: string[];
   cover_image_url?: string; // Optional path relative to /public
-}
+}*/}
 
 // Interface matching the relevant parts of the raw GitHub API response
 // Needed because the API response has more fields than our final 'Repo' interface
@@ -106,7 +112,28 @@ export default function Portfolio({ repos }: PortfolioProps) {
 }
 
 // --- getStaticProps: Fetches data at build time ---
+
 export const getStaticProps: GetStaticProps<PortfolioProps> = async () => {
+  console.log("Portfolio getStaticProps: Calling shared fetch function...");
+
+  // Call the shared function
+  const allRepos = await fetchPortfolioRepos();
+
+  console.log(`Portfolio getStaticProps: Received ${allRepos.length} repos from shared function.`);
+
+  return {
+      props: {
+          repos: allRepos, // Pass all fetched repos to the portfolio page
+      },
+      // Optional: Add revalidate time if needed
+      // revalidate: 3600,
+  };
+};
+
+
+
+
+{/*export const getStaticProps: GetStaticProps<PortfolioProps> = async () => {
    console.log("Portfolio getStaticProps: Starting data fetch...");
 
    const username = process.env.GITHUB_USERNAME;
@@ -216,4 +243,4 @@ export const getStaticProps: GetStaticProps<PortfolioProps> = async () => {
        // Use 'false' for pure SSG (only rebuild on new deployment)
        // Use a smaller number (e.g., 60) for more frequent updates, but consider build server load/costs
    };
-};
+};*/}
