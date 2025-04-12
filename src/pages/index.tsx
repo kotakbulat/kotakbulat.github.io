@@ -45,7 +45,7 @@ export default function Home({ featuredRepos }: HomeProps) { // <-- Add featured
   const featuredWorkSectionRef = useRef<HTMLDivElement>(null);
   const featuredWorkHeadingRef = useRef<HTMLHeadingElement>(null);
 
-  const skills = ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Node.js', 'Framer Motion', 'Git'];
+  const skills = ['Node.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Vite', 'Framer Motion', 'Git'];
 
 
   // --- GSAP Animations ---
@@ -284,7 +284,7 @@ export default function Home({ featuredRepos }: HomeProps) { // <-- Add featured
       <section ref={aboutSectionRef} id="about" className="container mx-auto py-24 md:py-32 px-6 md:px-10 lg:px-4">
         <h2 ref={aboutHeadingRef} className="text-4xl md:text-5xl font-bold font-custom mb-10 text-center text-gray-800 dark:text-gray-100">About Me</h2>
         <p ref={aboutParagraphRef} className="max-w-3xl mx-auto text-lg md:text-xl text-center font-custom leading-relaxed text-gray-600 dark:text-gray-300">
-          Passionate about building beautiful, interactive, and performant web experiences...
+          As long it works and good looking, it is what it is
         </p>
       </section>
 

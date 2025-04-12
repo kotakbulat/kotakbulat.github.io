@@ -103,7 +103,7 @@ export default function Portfolio({ repos }: PortfolioProps) {
 
       {/* Footer */}
        <footer className="text-center py-8 bg-gray-200 dark:bg-gray-900 text-gray-600 dark:text-gray-500 text-sm transition-colors duration-300">
-         © {new Date().getFullYear()} Hoki Wijaya. All Rights Reserved.
+         © {new Date().getFullYear()} Hoki Wijaya. Reference by dennissnellenberg
          {/* Optional: Add link back to Dennis Snellenberg if desired for credit */}
          {/* <span className="block mt-1">Inspired by dennissnellenberg.com</span> */}
        </footer>
