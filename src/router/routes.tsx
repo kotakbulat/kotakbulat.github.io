@@ -1,6 +1,8 @@
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import Playground from "../pages/Playground";
+import TestOnly from "../pages/test-only";
 
 
 export const routes = [
@@ -18,5 +20,15 @@ export const routes = [
         path: "/contact",
         name: "Contact",
         element: <Contact />,
+    },
+    {
+        path: "/playground",
+        name: "Playground",
+        element: <Playground />,
+    },
+    {
+        path: "/testing",
+        name: "Testing Page",
+        element: <TestOnly />,
     },
 ]

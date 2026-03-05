@@ -13,15 +13,17 @@ function App() {
       <BrowserRouter>
         <NavigationBar />
 
-        <Routes>
-          {routes.map((route) => (
-            <Route 
-              key={route.path}
-              path={route.path}
-              element={route.element}
-              />
-          ))}
-        </Routes>
+        <div style={{ marginTop:"30px", padding: "20px"}}> 
+          <Routes>
+            {routes.map((route) => (
+              <Route 
+                key={route.path}
+                path={route.path}
+                element={route.element}
+                />
+            ))}
+          </Routes>
+        </div>
       </BrowserRouter>
     </>
   )
