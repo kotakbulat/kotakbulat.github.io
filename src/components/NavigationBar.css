@@ -1,0 +1,23 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    gap: 20px;
+
+    background: #222;
+    padding: 15px 20px;
+    z-index: 1000;
+}
+
+.navlink {
+    color: white;
+    text-decoration: none;
+}
+
+.navlink.active {
+    font-weigth: bold;
+    border-bottom: 2px solid white;
+}
