@@ -1,7 +1,7 @@
 import './App.css'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import NavigationBar from './components/NavigationBar'
+import NavigationBar from './components/NavigationBar/NavigationBar'
 import { routes } from './router/routes'
 
 
