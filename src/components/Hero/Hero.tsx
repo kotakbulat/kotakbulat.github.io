@@ -1,4 +1,5 @@
 import "./Hero.css"
+import { Instagram, Linkedin, Github, Mail } from "lucide-react";
 
 function Hero() {
     return (
@@ -31,10 +32,10 @@ function Hero() {
                 />
 
                 <div className="socials">
-                    <a href="#">X</a>
-                    <a href="#">Github</a>
-                    <a href="#">Linkedin</a>
-                    <a href="#">Email</a>
+                    <a href="#"><Instagram /></a>
+                    <a href="#"><Github /></a>
+                    <a href="#"><Linkedin /></a>
+                    <a href="#"><Mail /></a>
                 </div>
             </div>
         </section>

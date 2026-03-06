@@ -1,39 +1,40 @@
 import "./Jobdesk.css"
+import { CodeXml, Palette, CirclePile, DatabaseSearch, Cable, Speech } from "lucide-react";
 
 type Jobdesk = {
-    icon: string
+    icon: React.ReactNode
     title: string
     description: string
 };
 
 const jobdesks : Jobdesk[] = [
     {
-        icon: "💻",
+        icon: <CodeXml size={28}/>,
         title: "Frontend Developtment",
         description: "Creating responsive and user-friendly interfaces using React, Next.js, and Tailwind CSS",
     },
     {
-        icon: "💡",
+        icon: <Palette size={28} />,
         title: "UI/UX Implementation",
         description: "I translate Figma and design mockups into responsive, pixel perfect user interfaces.",
     },
     {
-        icon: "🔗",
+        icon: <CirclePile size={28} />,
         title: "Third Party Integration",
         description: "I integrate third-party services and API's to enchance functionnality and user experience",
     },
     {
-        icon: "🗄️",
+        icon: <DatabaseSearch size={28} />,
         title: "Backend Developtment",
-        description: "Bui;d a scalable and secure backend using Node.js, Typescript, Laravel, and Golang",
+        description: "Build a scalable and secure backend using Node.js, Typescript, Laravel, and Golang",
     },
     {
-        icon: "⚙️",
+        icon: <Cable size={28} />,
         title: "DevOps",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque feugiat odio sapien, nec efficitur ligula volutpat sit amet",
     },
     {
-        icon: "💬",
+        icon: <Speech size={28} />,
         title: "Technical Leadership",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque feugiat odio sapien, nec efficitur ligula volutpat sit amet",
     },
