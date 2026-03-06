@@ -1,5 +1,6 @@
 import "./Hero.css"
 import { Instagram, Linkedin, Github, Mail } from "lucide-react";
+import Tooltip from "../Tooltip/Tooltip";
 
 function Hero() {
     return (
@@ -32,7 +33,7 @@ function Hero() {
                 />
 
                 <div className="socials">
-                    <a href="#"><Instagram /></a>
+                    <a href="#"><Tooltip text="this is using logo"><Instagram /></Tooltip></a>
                     <a href="#"><Github /></a>
                     <a href="#"><Linkedin /></a>
                     <a href="#"><Mail /></a>
