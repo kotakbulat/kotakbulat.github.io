@@ -1,4 +1,5 @@
 import Hero from "../components/Hero/Hero"
+import Jobdesks from "../components/Jobdesk/Jobdesk"
 
 function Home() {
 
@@ -6,6 +7,7 @@ function Home() {
         <>
             <div>
                 <Hero />
+                <Jobdesks />
             </div>
 
         </>

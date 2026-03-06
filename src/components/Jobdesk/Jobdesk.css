@@ -1,0 +1,71 @@
+.jobdesks {
+    padding: 80px 40px;
+}
+
+.jobdesks-header {
+    margin-bottom: 40px;
+}
+
+.jobdesks-header h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.jobdesks-header p {
+    font-size: 18px;
+    color: #cfcfcf;
+}
+
+.jobdesk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.jobdesk-card {
+    background: #0f1a2b;
+    border-radius: 12px;
+    padding: 10px;
+
+    border: 1px solid #2b3648 ;
+    transition: all 0.25s ease;
+}
+
+.jobdesk-card:hover {
+    transform: translateY(-6px);
+    border-color: #ff9d42;
+}
+
+.jobdesk-icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.jobdesk-card h3 {
+    color: #ff9d42;
+    margin-bottom: 10px;
+    text-align: left;
+
+}
+
+.jobdesk-card p {
+    color: #d0d0d0;
+    line-height: 1.6;
+    text-align: left;
+
+}
+
+
+
+@media (max-width: 1000px) {
+    .jobdesks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .jobdesks-grid {
+        grid-template-columns: 1fr;
+    }
+}
