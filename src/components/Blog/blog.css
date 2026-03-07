@@ -49,6 +49,7 @@
 .article-date {
     color: #9ca3af;
     font-size: 14px;
+    white-space: pre-wrap;
 }
 
 .article-card h2 {
@@ -63,6 +64,8 @@
 
 .article-tags {
     margin-top: 15px;
+    white-space: pre-wrap;
+
 }
 
 .tag {
@@ -77,4 +80,9 @@
 .article-image img {
     width: 100%;
     border-radius: 14px;
+}
+
+.article-page {
+    align-items: baseline;
+    text-align: left;
 }

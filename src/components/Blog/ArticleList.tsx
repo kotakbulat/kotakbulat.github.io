@@ -1,14 +1,38 @@
 import ArticleCard from "./ArticleCard";
 import { articles } from "../../data/articles";
 import "./blog.css"
+import { useState } from "react";
+import { loadPosts } from "../../utils/loadPosts";
+import { Settings } from "lucide-react";
+
+const allPosts = loadPosts();
+
 
 function ArticlesList() {
-    return (
-        <section className="article-list">
-            {articles.map((article, i) => (
-                <ArticleCard key={i} article={article} />
-            ))}
 
+    const [search, setSearch] = useState("");
+
+    const filtered = allPosts.filter(post => 
+        post.title.toLowerCase().includes(search.toLowerCase()) ||
+        post.description.toLowerCase().includes(search.toLowerCase())
+    )
+
+
+    return (
+        <section>
+            <input
+                placeholder="Search post..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                className="blog-search"
+            />
+
+            <div className="article-list">
+                {filtered.map(post => (
+                    <ArticleCard key={post.slug} article={post} />
+                ))}
+
+            </div>
         </section>
     )
 }

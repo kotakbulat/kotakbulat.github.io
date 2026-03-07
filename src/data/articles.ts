@@ -8,5 +8,6 @@ export const articles: Article[] = [
         tags: ["react", "javascript"],
         image: "./images/blog/article-0.png",
         slug: "test-article-0",
+        content:"",
     },
 ]

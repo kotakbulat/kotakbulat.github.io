@@ -1,5 +1,6 @@
 import type { Article } from "../../types/Article";
 import "./blog.css"
+import { Link } from "react-router-dom";
 
 type Props = {
     article: Article
@@ -7,7 +8,8 @@ type Props = {
 
 function ArticleCard({ article }: Props) {
     return (
-        <article className="article-card">
+
+        <Link to={`/blog/${article.slug}`} className="article-card">
 
             <div className="article-content">
                 <span className="article-date">{article.date}</span>
@@ -28,7 +30,7 @@ function ArticleCard({ article }: Props) {
                 <img src={article.image} alt={article.title} />
             </div>
 
-        </article>
+        </Link>
     )
 }
 

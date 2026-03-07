@@ -10,11 +10,6 @@ function Blog() {
                 <p>
                     My thoughts and experiences on software development and web technologies
                 </p>
-
-                <input 
-                    className="blog-search"
-                    placeholder="Search posts..."
-                />
             </section>
 
             <ArticlesList />

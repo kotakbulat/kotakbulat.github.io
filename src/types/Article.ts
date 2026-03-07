@@ -5,4 +5,5 @@ export type Article = {
     tags: string[]
     image: string
     slug: string
+    content: string
 }
