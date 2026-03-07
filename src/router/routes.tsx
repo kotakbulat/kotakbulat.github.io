@@ -1,4 +1,5 @@
 import Home from "../pages/Home";
+import Blog from "../pages/Blog";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Playground from "../pages/Playground";
@@ -10,6 +11,11 @@ export const routes = [
         path: "/",
         name: "Home",
         element: <Home />,
+    },
+    {
+        path: "/blog",
+        name: "Blog",
+        element: <Blog />,
     },
     {
         path: "/about",
