@@ -35,12 +35,12 @@ function Hero() {
 
                 <div className="socials">
                     <a href="#">
-                        <MagneticTooltip text="this is using logo">
+                        <MagneticTooltip text="this is using magnetic">
                             <Instagram />
                         </MagneticTooltip>
                     </a>
                     <a href="#">
-                        <Tooltip text="this is magnetic">
+                        <Tooltip text="this is tooltip">
                             <Github />
                         </Tooltip>
                     </a>
