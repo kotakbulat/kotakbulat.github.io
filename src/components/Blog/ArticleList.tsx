@@ -1,9 +1,8 @@
 import ArticleCard from "./ArticleCard";
-import { articles } from "../../data/articles";
 import "./blog.css"
 import { useState } from "react";
 import { loadPosts } from "../../utils/loadPosts";
-import { Settings } from "lucide-react";
+
 
 const allPosts = loadPosts();
 
