@@ -4,17 +4,20 @@ import { Link } from "react-router-dom";
 
 type Props = {
     article: Article
+    variant?: "default" | "featured"
 };
 
-function ArticleCard({ article }: Props) {
+function ArticleCard({ article, variant = "default" }: Props) {
     return (
 
-        <Link to={`/blog/${article.slug}`} className="article-card">
+        <Link 
+            to={`/blog/${article.slug}`} 
+            className={`article-card article-card--${variant}`}>
 
             <div className="article-content">
                 <span className="article-date">{article.date}</span>
 
-                <h2>{article.title}</h2>
+                <h2 className={"article-title"}>{article.title}</h2>
                 <p>{article.description}</p>
 
                 <div className="article-tags">
