@@ -23,28 +23,32 @@
 }
 
 .jobdesk-card {
-    background: #0f1a2b;
+    background: #1d1d1d;
     border-radius: 12px;
     padding: 10px;
 
-    border: 1px solid #2b3648 ;
+    border: 1px solid #212121 ;
     transition: all 0.25s ease;
+
+    box-shadow: 3px 3px 0 1px #9c9c9c;
 }
 
 .jobdesk-card:hover {
-    transform: translateY(-6px);
-    border-color: #ff9d42;
+    /*transform: translateY(-6px);*/
+    /*border-color: #ff9d42;*/
+    box-shadow: 1px 1px 0 1px #9c9c9c;
 }
 
 .jobdesk-icon {
     font-size: 28px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     text-align: left;
 }
 
 .jobdesk-card h3 {
     color: #ff9d42;
     margin-bottom: 10px;
+    margin-top: 0;
     text-align: left;
 
 }
