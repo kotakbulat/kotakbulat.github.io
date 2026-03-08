@@ -1,5 +1,5 @@
 :root {
-  font-family: Verdana, sans-serif;
+  font-family: SansAtwic;
   line-height: 1.5;
   font-weight: 400;
 
@@ -65,4 +65,40 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@font-face {
+  font-family: "SansAtwic";
+  src: url("./assets/fonts/SansAtwicLi.otf") format("opentype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SansAtwic";
+  src: url("./assets/fonts/SansAtwicReg.otf") format("opentype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SansAtwic";
+  src: url("./assets/fonts/SansAtwicMid.otf") format("opentype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SansAtwic";
+  src: url("./assets/fonts/SansAtwicSemiB.otf") format("opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "SansAtwic";
+  src: url("./assets/fonts/SansAtwicBold.otf") format("opentype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "SansAtwic";
+  src: url("./assets/fonts/SansAtwicBlack.otf") format("opentype");
+  font-weight: 900;
 }
