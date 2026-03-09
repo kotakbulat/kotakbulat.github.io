@@ -1,6 +1,7 @@
 import Hero from "../components/Hero/Hero"
 import Jobdesks from "../components/Jobdesk/Jobdesk"
 import FeaturedPosts from "../components/Blog/FeaturedPosts"
+import FeaturedProjects from "../components/Project/FeaturedPosts"
 
 function Home() {
 
@@ -10,6 +11,7 @@ function Home() {
                 <Hero />
                 <Jobdesks />
                 <FeaturedPosts />
+                <FeaturedProjects />
             </div>
 
         </>

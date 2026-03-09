@@ -4,8 +4,7 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Playground from "../pages/Playground";
 import TestOnly from "../pages/test-only";
-import ArticlePage from "../pages/ArticlePage";
-
+import Project from "../pages/Project";
 
 export const routes = [
     {
@@ -17,6 +16,11 @@ export const routes = [
         path: "/blog",
         name: "Blog",
         element: <Blog />,
+    },
+    {
+        path: "/project",
+        name: "Project",
+        element: <Project />,
     },
     {
         path: "/about",
@@ -38,9 +42,5 @@ export const routes = [
         name: "Testing Page",
         element: <TestOnly />,
     },
-    {
-        path: "/blog/:slug",
-        name: "Article",
-        element: <ArticlePage />,
-    },
+    
 ]

@@ -1,0 +1,149 @@
+/* project */
+.project-hero {
+    text-align: center;
+    padding: 120px 20px 60px;
+}
+
+.project-hero h1 {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.project-hero p {
+    color: #cfcfcf;
+    margin-bottom: 25px;
+}
+
+.project-search {
+    width: 600px;
+    max-width: 90%;
+    padding: 12px 16px;
+
+    background: #0f1a2b;
+    border: 1px solid #2b3648;
+    border-radius: 8px;
+
+    color: white;
+}
+
+/*Article List*/
+.project-list {
+    max-width: 1100px;
+    margin: auto;
+    padding: 60px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+/* Article Card */
+.project-card {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+    align-items: baseline;
+    text-align: left;
+}
+
+.project-date {
+    color: #9ca3af;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+.project-card h2 {
+    font-size: 28px;
+    margin: 8px 0;
+}
+
+.project-card--featured h2 {
+  font-size: medium;
+}
+
+.project-card p {
+    color: #cfcfcf;
+    line-height: 1.7;
+}
+
+.project-tags {
+    margin-top: 15px;
+    white-space: pre-wrap;
+
+}
+
+.tag {
+    border: 1px solid #ff9d42;
+    color: #ff9d42;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-right: 8px;
+}
+
+.project-image img {
+    width: 100%;
+    border-radius: 14px;
+}
+
+.project-page {
+    align-items: baseline;
+    text-align: left;
+}
+
+.project-title {
+    color: #ebebeb;
+
+}
+
+.featured-projects {
+    border-radius: 12px;
+    padding: 0 20px;
+    padding-bottom: 50px;
+    max-width: 1100px;
+    margin: 120px auto;
+
+    border: 2px solid #2b3648 ;
+    transition: all 0.25s ease;
+}
+
+.featured-header {
+    text-align: left;
+    font-size: x-large;
+    row-gap: 50%;
+}
+
+.featured-header h2 {
+    margin-bottom: 0.1em;
+}
+
+.featured-header span {
+    color: #ff9d42;
+}
+
+.featured-header p {
+    margin-top: 0.1em;
+    font-size: small;
+}
+
+.featured-list {
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.project-divider {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    opacity: 30%;
+ }
+
+
+
+.link-project p {
+    margin-bottom: 0;
+    color: #ff9d42;
+    font-weight: 400;
+    align-items: center;
+}
