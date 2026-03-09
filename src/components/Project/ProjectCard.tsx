@@ -11,7 +11,7 @@ function ProjectCard({ project, variant = "default" }: Props) {
     return (
 
         <Link 
-            to={`/blog/${project.slug}`} 
+            to={`/project/${project.slug}`} 
             className={`project-card article-card--${variant}`}>
 
             <div className="project-content">

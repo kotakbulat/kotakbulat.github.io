@@ -1,6 +1,6 @@
 import type { Project } from "../types/Project";
 
-const modules = import.meta.glob("../assets/projects/*.md", {
+const modules = import.meta.glob("../project/*.md", {
     eager: true,
     query: "?raw",
     import: "default",

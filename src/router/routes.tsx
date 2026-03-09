@@ -5,6 +5,9 @@ import Contact from "../pages/Contact";
 import Playground from "../pages/Playground";
 import TestOnly from "../pages/test-only";
 import Project from "../pages/Project";
+import ArticlePage from "../pages/ArticlePage";
+import ProjectPage from "../pages/ProjectPage";
+
 
 export const routes = [
     {
@@ -41,6 +44,16 @@ export const routes = [
         path: "/testing",
         name: "Testing Page",
         element: <TestOnly />,
+    },
+    {
+        path: "/project/:slug",
+        name: "",
+        element: <ProjectPage />,
+    },
+    {
+        path: "/blog/:slug",
+        name: "",
+        element: <ArticlePage />,
     },
     
 ]

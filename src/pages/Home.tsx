@@ -1,7 +1,7 @@
 import Hero from "../components/Hero/Hero"
 import Jobdesks from "../components/Jobdesk/Jobdesk"
 import FeaturedPosts from "../components/Blog/FeaturedPosts"
-import FeaturedProjects from "../components/Project/FeaturedPosts"
+import FeaturedProjects from "../components/Project/FeaturedProjects"
 
 function Home() {
 
