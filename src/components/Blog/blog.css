@@ -138,3 +138,12 @@
     margin-bottom: 0px;
     opacity: 30%;
  }
+
+
+
+.link-blog p {
+    margin-bottom: 0;
+    color: #ff9d42;
+    font-weight: 400;
+    align-items: center;
+}

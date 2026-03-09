@@ -1,6 +1,6 @@
 import type { Article } from "../types/Article";
 
-const modules = import.meta.glob("../posts/*.md", {
+const modules = import.meta.glob("../blogs/*.md", {
     eager: true,
     query: "?raw",
     import: "default",
