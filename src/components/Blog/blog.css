@@ -115,6 +115,7 @@
 
 .featured-header h2 {
     margin-bottom: 0.1em;
+    font-weight: 500;
 }
 
 .featured-header span {
@@ -143,7 +144,11 @@
 
 .link-blog p {
     margin-bottom: 0;
-    color: #ff9d42;
+    color: #cbd5e1;
     font-weight: 400;
     align-items: center;
+}
+
+.link-blog p:hover {
+    color: #ff9d42;
 }

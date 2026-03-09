@@ -111,10 +111,13 @@
     text-align: left;
     font-size: x-large;
     row-gap: 50%;
+    margin-bottom: 50px;
 }
 
 .featured-header h2 {
     margin-bottom: 0.1em;
+    font-weight: 500;
+    font-size: 50px;
 }
 
 .featured-header span {
@@ -143,7 +146,11 @@
 
 .link-project p {
     margin-bottom: 0;
-    color: #ff9d42;
+    color: #cbd5e1;
     font-weight: 400;
     align-items: center;
+}
+
+.link-project p:hover {
+    color: #ff9d42;
 }

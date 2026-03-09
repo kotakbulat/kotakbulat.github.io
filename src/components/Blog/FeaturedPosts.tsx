@@ -13,9 +13,9 @@ function FeaturedPosts() {
 
             <div className="featured-header">
                 <h2>
-                    Featured <span>Posts</span>
+                    Featured <span>Blogs</span>
                 </h2>
-                <p>Some Articles i've written</p>
+                <p>Some Blogs i've written</p>
             </div>
 
             <div className="featured-list">
