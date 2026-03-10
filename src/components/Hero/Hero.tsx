@@ -2,6 +2,7 @@ import "../../styles/Hero.css"
 import { Instagram, Linkedin, Github, Mail } from "lucide-react";
 import Tooltip from "../Tooltip/Tooltip";
 import MagneticTooltip from "../Tooltip/MagneticTooltip";
+import profile from "../../assets/images/profile.jpeg";
 
 function Hero() {
     return (
@@ -28,7 +29,7 @@ function Hero() {
 
             <div className="hero-right">
                 <img    
-                    src="/profile.jpg"
+                    src={profile}
                     alt="profile"
                     className="profile-image"
                 />

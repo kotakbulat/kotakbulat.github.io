@@ -40,9 +40,9 @@
 /* Article Card */
 .article-card {
     display: grid;
-    grid-template-columns: 1fr 350px;
+    grid-template-columns: 1.5fr 1fr;
     gap: 40px;
-    align-items: baseline;
+    align-items: center;
     text-align: left;
 }
 
@@ -82,8 +82,9 @@
 }
 
 .article-image img {
-    width: 100%;
+    width: 85%;
     border-radius: 14px;
+    height: auto;
 }
 
 .article-page {
@@ -151,4 +152,11 @@
 
 .link-blog p:hover {
     color: #ff9d42;
+}
+
+
+.blog-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }

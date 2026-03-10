@@ -4,6 +4,7 @@ title: Deploy Website Gratis dengan GitHub Pages: Panduan Setup dari Nol
 date: 2026-03-07
 tags: github, github-pages, web-development, deployment, tutorial
 description: Panduan lengkap cara men-deploy website statis secara gratis menggunakan GitHub Pages, mulai dari membuat repository hingga website dapat diakses secara online.
+image: blog-github-pages.png
 ---
 
 ## Kenapa GitHub Pages?

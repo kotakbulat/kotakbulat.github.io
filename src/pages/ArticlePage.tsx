@@ -30,6 +30,12 @@ function ArticlePage() {
             
             <span className="article-date">{post.date}</span>
 
+            <img    
+                src={post.image}
+                alt={post.title}
+                className="blog-image"
+            />
+
             <ReactMarkdown>
                 {post.content}
             </ReactMarkdown>
