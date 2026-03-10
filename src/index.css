@@ -11,11 +11,29 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ===== Theme Colors ===== */
+
+  --color-primary: #9ca3af;
+  --color-secondary: #ff9d42;
+
+  --color-background: #2a2a2a;
+  --color-text: rgba(255, 255, 255, 0.87);
+
+  --color-border: #ff9d42;
+
+  --card-bg: #111111;
+  --card-border: #2a2a2a;
+
+  --button-bg: #4f46e5;
+  --button-text: #ffffff;
+
+  --link-color: #ff9d42;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #9ca3af;
   text-decoration: inherit;
 }
 a:hover {
@@ -47,7 +65,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #ff9d42;
 }
 button:focus,
 button:focus-visible {
@@ -60,7 +78,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #ff9d42;
   }
   button {
     background-color: #f9f9f9;

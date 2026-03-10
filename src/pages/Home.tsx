@@ -3,6 +3,7 @@ import Jobdesks from "../components/Jobdesk/Jobdesk"
 import FeaturedPosts from "../components/Blog/FeaturedPosts"
 import FeaturedProjects from "../components/Project/FeaturedProjects"
 import RepoSection from "../components/GitRepo/RepoSection"
+import ContactCTA from "../components/Contact/ContactCTA"
 
 function Home() {
 
@@ -14,6 +15,7 @@ function Home() {
                 <FeaturedPosts />
                 <FeaturedProjects />
                 <RepoSection />
+                <ContactCTA />
             </div>
 
         </>
