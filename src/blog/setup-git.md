@@ -3,6 +3,7 @@ title: Bagaimana cara setup Git dan GitHub pada local device
 date: 2026-03-07
 tags: git, github
 description: Panduan lengkap tentang setup Git dan GitHub pada perangkat lokal.
+image: blog-git.png
 ---
 
 ## Setup Git dan GitHub

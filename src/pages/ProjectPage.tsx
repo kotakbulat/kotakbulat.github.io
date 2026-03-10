@@ -30,6 +30,12 @@ function ProjectPage() {
             
             <span className="project-date">{project.date}</span>
 
+            <img    
+                src={project.image}
+                alt={project.title}
+                className="project-image"
+            />
+
             <ReactMarkdown>
                 {project.content}
             </ReactMarkdown>

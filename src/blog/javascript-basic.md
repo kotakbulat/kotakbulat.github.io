@@ -4,6 +4,7 @@ title: JavaScript Basics: Understanding the Fundamentals
 date: 2026-03-07
 tags: javascript, programming, web-development, beginners
 description: A beginner-friendly introduction to JavaScript covering variables, data types, functions, control flow, and basic concepts used in modern web development.
+image: blog-javascript-basic.png
 ---
 
 ## Introduction

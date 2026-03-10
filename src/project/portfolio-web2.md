@@ -3,6 +3,7 @@ title: Portfolio Website
 date: 2026-03-09
 tags: web-development, react, javascript
 description: Project untuk membuat Website Personal
+image: project-webdev.png
 ---
 
 Langsung cek [kotakbulat.github.io] {https://kotakbulat.github.io} 

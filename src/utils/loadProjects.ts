@@ -6,6 +6,11 @@ const modules = import.meta.glob("../project/*.md", {
     import: "default",
 })
 
+const images = import.meta.glob("../assets/images/*", {
+    eager: true,
+    import: "default"
+}) as Record<string, string>;
+
 export function loadProjects(): Project[] {
     const projects: Project[] = [];
 
@@ -20,12 +25,16 @@ export function loadProjects(): Project[] {
         const descMatch = raw.match(/description:\s*(.*)/);
         const tagsMatch = raw.match(/tags:\s*(.*)/);
         const imageMatch = raw.match(/image:\s*(.*)/);
+        const imagePath = imageMatch?.[1]?.trim() || "";
+
+        const resolvedImage = images[`../assets/images/${imagePath.split("/").pop()}`] || "";
+
 
         const content = raw.split("---").slice(2).join("---");
 
         projects.push({
             slug,
-            image: imageMatch?.[1] || "",
+            image: resolvedImage,
             title: titleMatch?.[1] || "",
             date: dateMatch?.[1] || "",
             description: descMatch?.[1] || "",
