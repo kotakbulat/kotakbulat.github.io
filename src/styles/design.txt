@@ -1,0 +1,22 @@
+--------------------------
+  background:
+    linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(135deg,#202020,#000000);
+
+  background-size:
+    40px 40px,
+    40px 40px,
+    cover;
+
+
+
+-----------------------------
+
+
+background-color: #000000;
+opacity: 0.9;
+background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #000000 15px ), repeating-linear-gradient( #26262655, #262626 );
+
+
+-----------------------------
