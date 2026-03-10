@@ -7,7 +7,7 @@ export default function  ContactCTA() {
             <div className="contact-cta-card">
 
                 <h2>
-                    Boost your Team with Expert Developers
+                    Boost Your Team with Expert Developers
                 </h2>
 
                 <p>
