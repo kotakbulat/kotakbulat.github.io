@@ -1,7 +1,7 @@
 import RepoCard from "./RepoCard";
 import { repos } from "../../data/Repo";
 import { ArrowRight } from "lucide-react";
-import "./repo.css"
+import "../../styles/repo.css"
 
 export default function RepoSection() {
 

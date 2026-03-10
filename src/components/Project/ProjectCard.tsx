@@ -1,5 +1,5 @@
 import type { Project } from "../../types/Project";
-import "./project.css"
+import "../../styles/project.css"
 import { Link } from "react-router-dom";
 
 type Props = {

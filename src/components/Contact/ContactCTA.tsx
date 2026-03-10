@@ -1,4 +1,4 @@
-import "./contact.css"
+import "../../styles/contact.css"
 
 export default function  ContactCTA() {
     return (

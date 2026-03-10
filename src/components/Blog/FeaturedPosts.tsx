@@ -1,6 +1,6 @@
 import { loadPosts } from "../../utils/loadPosts";
 import ArticleCard from "./ArticleCard";
-import "./blog.css"
+import "../../styles/blog.css"
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 

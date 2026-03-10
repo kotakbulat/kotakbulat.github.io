@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { loadPosts } from "../utils/loadPosts";
-import "../components/Blog/blog.css"
+import "../styles/blog.css"
 
 const posts = loadPosts();
 

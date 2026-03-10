@@ -1,5 +1,5 @@
 import ProjectsList from "../components/Project/ProjectsList"
-import "../components/Project/project.css"
+import "../styles/project.css"
 
 function Project() {
     return (

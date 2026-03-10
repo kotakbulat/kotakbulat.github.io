@@ -1,6 +1,6 @@
 import { loadProjects } from "../../utils/loadProjects";
 import ProjectCard from "./ProjectCard";
-import "./project.css"
+import "../../styles/project.css"
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 

@@ -46,6 +46,17 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  background:
+    linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(135deg,#202020,#000000);
+
+  background-size:
+    40px 40px,
+    40px 40px,
+    cover;
+
 }
 
 h1 {

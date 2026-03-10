@@ -1,5 +1,5 @@
 import ArticlesList from "../components/Blog/ArticleList"
-import "../components/Blog/blog.css"
+import "../styles/blog.css"
 
 function Blog() {
     return (

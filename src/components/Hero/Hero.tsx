@@ -1,4 +1,4 @@
-import "./Hero.css"
+import "../../styles/Hero.css"
 import { Instagram, Linkedin, Github, Mail } from "lucide-react";
 import Tooltip from "../Tooltip/Tooltip";
 import MagneticTooltip from "../Tooltip/MagneticTooltip";

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { loadProjects } from "../utils/loadProjects";
-import "../components/Project/project.css"
+import "../styles/project.css"
 
 const projects = loadProjects();
 

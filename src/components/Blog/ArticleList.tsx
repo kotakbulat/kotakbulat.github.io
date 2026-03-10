@@ -1,5 +1,5 @@
 import ArticleCard from "./ArticleCard";
-import "./blog.css"
+import "../../styles/blog.css"
 import { useState } from "react";
 import { loadPosts } from "../../utils/loadPosts";
 

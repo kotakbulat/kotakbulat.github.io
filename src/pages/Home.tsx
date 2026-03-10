@@ -5,12 +5,13 @@ import FeaturedProjects from "../components/Project/FeaturedProjects"
 import RepoSection from "../components/GitRepo/RepoSection"
 import ContactCTA from "../components/Contact/ContactCTA"
 import Footer from "../components/Footer/Footer"
+import "../styles/home.css"
 
 function Home() {
 
     return (
         <>
-            <div>
+            <div className="home">
                 <Hero />
                 <Jobdesks />
                 <FeaturedPosts />

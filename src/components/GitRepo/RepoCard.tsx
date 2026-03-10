@@ -1,6 +1,6 @@
 import type { Repo } from "../../types/Repo";
 import { Star, GitFork, Book, Shapes } from "lucide-react";
-import "./repo.css"
+import "../../styles/repo.css"
 
 type Props = {
     repo: Repo

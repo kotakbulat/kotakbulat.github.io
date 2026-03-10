@@ -1,5 +1,5 @@
 import ProjectCard from "./ProjectCard";
-import "./project.css"
+import "../../styles/project.css"
 import { useState } from "react";
 import { loadProjects } from "../../utils/loadProjects";
 

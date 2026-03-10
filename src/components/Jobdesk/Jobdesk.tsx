@@ -1,4 +1,4 @@
-import "./Jobdesk.css"
+import "../../styles/Jobdesk.css"
 import { CodeXml, Palette, CirclePile, DatabaseSearch, Cable, Speech } from "lucide-react";
 
 type Jobdesk = {
