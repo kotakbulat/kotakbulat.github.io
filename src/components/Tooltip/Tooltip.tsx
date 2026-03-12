@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import "./Tooltip.css"
 
-type TolltipProps = {
+type TooltipProps = {
     text: string;
     children: ReactNode;
 }
 
 
-function Tooltip({ text, children }: TolltipProps) {
+function Tooltip({ text, children }: TooltipProps) {
     return (
         <div className="tooltip-container">
             {children}

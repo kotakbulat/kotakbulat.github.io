@@ -9,19 +9,19 @@
     position: absolute;
     bottom: 125%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 15px);
 
-    background: #0f1a2b;
-    color: #fff;
+    background: #ffffff;
+    color: #000000;
     padding: 8px 12px;
     border-radius: 6px;
 
     font-size: 14px;
     white-space: nowrap;
 
-    border: 1px solid #2b3648;
+    border: 1px solid #ffffff;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.15s ease, transform 0.15s cubic-bezier(.22,1,.36,1 );
 
     z-index: 100;
 }
@@ -29,6 +29,7 @@
 .tooltip-container:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
+    transform: translate(-50%, 0);
 }
 
 .tooltip-text::after {
@@ -40,5 +41,5 @@
 
     border-width: 6px;
     border-style: solid;
-    border-color: #0f1a2b transparent transparent transparent;
+    border-color: #ffffff transparent transparent transparent;
 }

@@ -1,5 +1,5 @@
 import "../../styles/Hero.css"
-import { Instagram, Linkedin, Github, Mail } from "lucide-react";
+import { Instagram, Linkedin, Github, Mail, FileText } from "lucide-react";
 import Tooltip from "../Tooltip/Tooltip";
 import MagneticTooltip from "../Tooltip/MagneticTooltip";
 import profile from "../../assets/images/profile.jpeg";
@@ -35,18 +35,11 @@ function Hero() {
                 />
 
                 <div className="socials">
-                    <a href="#">
-                        <MagneticTooltip text="this is using magnetic">
-                            <Instagram />
-                        </MagneticTooltip>
-                    </a>
-                    <a href="#">
-                        <Tooltip text="this is tooltip">
-                            <Github />
-                        </Tooltip>
-                    </a>
-                    <a href="#"><Linkedin /></a>
-                    <a href="#"><Mail /></a>
+                    <a href="https://instagram.com/urmyhoki"><MagneticTooltip text="Instagram"><Instagram /></MagneticTooltip></a>
+                    <a href="https://github.com/kotakbulat"><Tooltip text="Github"><Github /></Tooltip></a>
+                    <a href="https://www.linkedin.com/in/hoki-wijaya-80528b144"><Tooltip text="Linkedin"><Linkedin /></Tooltip></a>
+                    <a href="mailto:hokilimpahwijaya@gmail.com"><Tooltip text="Email"><Mail /></Tooltip></a>
+                    <a href="#"><Tooltip text="Resume"><FileText /></Tooltip></a>
                 </div>
             </div>
         </section>
