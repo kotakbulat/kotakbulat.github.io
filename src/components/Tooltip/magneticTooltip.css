@@ -1,6 +1,7 @@
 .magnetic-container {
     position: relative;
     display: inline-block;
+    z-index: 2;
 }
 
 .magnetic-tooltip {
