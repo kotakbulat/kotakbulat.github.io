@@ -21,12 +21,12 @@ const jobdesks : Jobdesk[] = [
     {
         icon: <CirclePile size={28} />,
         title: "Third Party Integration",
-        description: "I integrate third-party services and API's to enchance functionnality and user experience",
+        description: "I integrate third-party services and API's to enchance functionality and user experience",
     },
     {
         icon: <DatabaseSearch size={28} />,
         title: "Backend Developtment",
-        description: "Build a scalable and secure backend using Node.js, Typescript, Laravel, and Golang",
+        description: "Build a scalable and secure backend using Node.js and Typescript",
     },
     {
         icon: <Cable size={28} />,

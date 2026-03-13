@@ -4,9 +4,15 @@ import Tooltip from "../Tooltip/Tooltip";
 import MagneticTooltip from "../Tooltip/MagneticTooltip";
 import profile from "../../assets/images/profile.jpeg";
 
-function Hero() {
+type HeroProps = {
+    variant?: "default" | "vertical";
+};
+
+function Hero({ variant = "default" }: HeroProps) {
+
     return (
-        <section className="hero">
+        <section className={`hero hero-${variant}`}>
+            
             <div className="hero-left">
                 <h1 >
                 Hi, I'm <span className="highlight">Hoki L. W.</span><br />

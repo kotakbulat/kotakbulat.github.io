@@ -95,3 +95,24 @@
         font-size: 36px;
     }
 }
+
+
+/*Vertical*/
+.hero-vertical {
+    flex-direction: column-reverse;
+    text-align: center;
+    align-items: center;
+}
+
+.hero-vertical .hero-left {
+    max-width: 1200px;
+    margin-top: -40px;
+}
+
+.hero-vertical .hero-right {
+    margin-bottom: 10px;
+}
+
+.hero-vertical .socials {
+    justify-content: center;
+}
