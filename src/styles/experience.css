@@ -5,7 +5,7 @@
 
 .experience-title {
     font-size: 40px;
-
+    margin-bottom: 1px;
 }
 
 .experience-title span {
@@ -15,6 +15,7 @@
 .experience-sub {
     color: #bcbcbc;
     margin-bottom: 40px;
+    margin-top: 1px;
 }
 
 .experience-item {
@@ -30,11 +31,31 @@
     text-align: left;
 }
 
+.company {
+    color: #ff9d42;
+    font-weight: 700;
+    font-size: x-large;
+    margin-bottom: 1px;
+}
+
+.role {
+    font-weight: 600;
+    margin-top: 1px;
+    font-size: medium;
+}
+
+.meta {
+    color: #878787;
+    font-size: medium;
+    line-height: 13px;
+    align-items: center;
+}
 
 .description {
     background: #0f1622;
     padding: 20px;
     border-radius: 10px;
+    border: 1px solid #878787;
 }
 
 .meta-cards {
@@ -48,11 +69,14 @@
     border: 1px solid #1c2430;
     border-radius: 10px;
     text-align: left;
+    position: relative;
+    overflow: hidden;
 }
 
 .meta-title {
     margin-top: 1px;
     margin-bottom: 1px;
+    color: #878787;
 }
 
 .meta-value {
@@ -66,4 +90,8 @@
     padding: 14px;
     border-radius: 10px;
     margin-top: 10px;
+}
+
+.list-title {
+    color: #878787;
 }

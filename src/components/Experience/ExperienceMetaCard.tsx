@@ -1,3 +1,5 @@
+import "../../styles/animation.css"
+
 type MetaProps = {
     title: string
     value: string
@@ -6,7 +8,7 @@ type MetaProps = {
 export default function ExperienceMetaCard({ title, value }: MetaProps) {
 
     return (
-        <div className="meta-card">
+        <div className="meta-card loader-ring">
 
             <p className="meta-title">{title}</p>
 

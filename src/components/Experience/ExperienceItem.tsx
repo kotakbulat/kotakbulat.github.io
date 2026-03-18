@@ -1,6 +1,7 @@
 import ExperienceListItem from "./ExperienceListItem";
 import ExperienceMetaCard from "./ExperienceMetaCard";
 import type { Experience } from "../../types/Experience";
+import { MapPin, Target, BriefcaseBusiness, Calendar, Award, Zap, Users } from "lucide-react";
 
 type ExperienceItemProps = {
     exp: Experience
@@ -18,8 +19,8 @@ export default function ExperienceItem({ exp }: ExperienceItemProps) {
                 <p className="role">{exp.role}</p>
 
                 <div className="meta">
-                    <p>{exp.type}</p>
-                    <p>{exp.location}</p>
+                    <p><BriefcaseBusiness size={18}/> {exp.type}</p>
+                    <p><MapPin size={20} /> {exp.location}</p>
                 </div>
 
                 <div className="description">

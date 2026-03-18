@@ -1,0 +1,44 @@
+.loader-ring {
+    position: relative;
+}
+
+.loader-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        #ff9d42,
+        transparent,
+        #ff9d42,
+        transparent
+    );
+
+    background-size: 300% 300%;
+
+    animation: loader-ring-move 4s linear infinite;
+
+    -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+
+    mask-composite: exclude;
+
+    pointer-events: none;
+
+}
+
+@keyframes loader-ring-move {
+    0% {
+        background-position: 0% 50%;
+   }
+   100% {
+        background-position: 100% 50%;
+   }
+}
