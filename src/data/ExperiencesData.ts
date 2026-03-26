@@ -40,6 +40,40 @@ export const ExperiencesData = [
   },
 
   {
+    company: "Padepokan Seni Bagong Kussudiardja",
+    role: "Assistant Librarian",
+    type: "Freelance",
+    location: "Indonesia",
+    description: "Managed library resources and supported archival organization in an arts institution.",
+    duration: "Oct 2023 - Feb 2024",
+    teamSize: "N/A",
+    project: "Library & Archive Management",
+    contributions: [
+      "Organized and maintained library collections.",
+      "Assisted with cataloging and archival processes."
+    ],
+    achievements: []
+  },
+
+  {
+    company: "Tomoru",
+    role: "Sales Associate",
+    type: "Internship",
+    location: "Indonesia",
+    description: "Supported sales operations and customer interactions in a retail environment.",
+  
+    duration: "Sep 2023 - Dec 2023",
+    teamSize: "N/A",
+    project: "Sales Operations",
+  
+    contributions: [
+      "Assisted customers with product selection and inquiries.",
+      "Supported daily sales activities and store operations."
+    ],
+    achievements: []
+  },
+
+  {
     company: "PT Asuransi Tugu Pratama Indonesia Tbk.",
     role: "Product Management and Business Retail Staff",
     type: "Full-Time",
@@ -73,6 +107,24 @@ export const ExperiencesData = [
       "Analyzed premium reserves including Syariah models.",
       "Collaborated with actuarial team for optimization.",
       "Used Python, R, SAS, and Power BI for analysis."
+    ],
+    achievements: []
+  },
+
+  {
+    company: "Libertas Fraternity",
+    role: "Graphic Designer",
+    type: "Part-Time",
+    location: "Indonesia",
+    description: "Designed visual materials to support organizational branding and communication.",
+  
+    duration: "Sep 2019 - Sep 2020",
+    teamSize: "N/A",
+    project: "Visual Design",
+  
+    contributions: [
+      "Created graphic assets for events and internal communications.",
+      "Maintained consistent visual identity across materials."
     ],
     achievements: []
   },
