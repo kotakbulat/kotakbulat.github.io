@@ -1,7 +1,7 @@
 import ExperienceListItem from "./ExperienceListItem";
 import ExperienceMetaCard from "./ExperienceMetaCard";
 import type { Experience } from "../../types/Experience";
-import { MapPin, Target, BriefcaseBusiness, Calendar, Award, Zap, Users } from "lucide-react";
+import { MapPin, BriefcaseBusiness, Award, Zap, Target, Calendar, Users } from "lucide-react";
 
 type ExperienceItemProps = {
     exp: Experience
@@ -38,28 +38,33 @@ export default function ExperienceItem({ exp }: ExperienceItemProps) {
                     <ExperienceMetaCard
                         title="Duration"
                         value={exp.duration}
+                        icon={Calendar}
                     />
 
                     <ExperienceMetaCard
                         title="Team Size"
                         value={exp.teamSize}
+                        icon={Users}
                     />
 
                     <ExperienceMetaCard
                         title="Project"
                         value={exp.project}
+                        icon={Target}
                     />
                 </div>
 
                 <ExperienceListItem 
                     title="Contribution"
                     items={exp.contributions}
+                    icon={Zap}
                 />
 
                 {exp.achievements && (
                     <ExperienceListItem
                         title="Achievements"
                         items={exp.achievements}
+                        icon={Award}
                     />
                 )}
 

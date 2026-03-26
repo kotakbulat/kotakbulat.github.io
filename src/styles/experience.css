@@ -77,6 +77,8 @@
     margin-top: 1px;
     margin-bottom: 1px;
     color: #878787;
+    display: flex;
+    flex-direction: row;
 }
 
 .meta-value {
@@ -94,4 +96,25 @@
 
 .list-title {
     color: #878787;
+    display: flex;
+    flex-direction: row;
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 7px;
+    
+    width: 28px;
+    height: 28px;
+    
+    border-radius: 8px;
+    
+    background: #202020; /* dark card bg */
+    border: 0px solid #2b3648;
+}
+
+.icon {
+    color: #b3b3b3;
 }
