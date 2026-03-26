@@ -50,6 +50,11 @@
     z-index: 2;
 }
 
+.profile-image:hover {
+    width: 270px;
+    bottom: 10px;
+} 
+
 .image-wrapper {
     position: relative;
     display: inline-block;
