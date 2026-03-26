@@ -150,22 +150,4 @@ export const ExperiencesData = [
     ],
     achievements: []
   },
-
-  {
-    company: "Self-Employed",
-    role: "Trader",
-    type: "Freelance",
-    location: "Remote",
-    description: "Analyzed and traded financial instruments including stocks, commodities, and crypto.",
-
-    duration: "Jan 2021 - Present",
-    teamSize: "1 (Individual)",
-    project: "Financial Trading",
-
-    contributions: [
-      "Analyzed multiple financial instruments.",
-      "Identified and capitalized on market opportunities."
-    ],
-    achievements: []
-  },
 ];
