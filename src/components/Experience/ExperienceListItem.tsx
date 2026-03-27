@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react"
+import { GlowHover } from "../Tooltip/GlowHover"
 
 type ListProps = {
     title: string
@@ -17,9 +18,9 @@ export default function ExperienceListItem({ title, items, icon: Icon}: ListProp
             </p>
 
             {items.map((item, i) => (
-                <div key={i} className="list-item">
+                <GlowHover key={i} className="list-item">
                     {item}
-                </div>
+                </GlowHover>
             ))}
 
         </div>

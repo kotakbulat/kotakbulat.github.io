@@ -1,0 +1,42 @@
+.glow-hover {
+  position: relative;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: #0f0f12;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+/* glowing layer */
+.glow-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* border thickness */
+  
+  background: radial-gradient(
+    200px circle at var(--x, 50%) var(--y, 50%),
+    #ff79d9,
+    #937bff,
+    #ff6ad5,
+    transparent 70%
+  );
+
+  /* mask to show only border */
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+}
+
+/* show glow on hover */
+.glow-hover:hover::before {
+  opacity: 1;
+}
