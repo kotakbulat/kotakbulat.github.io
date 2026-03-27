@@ -10,6 +10,7 @@
     background: #222;
     padding: 15px 20px;
     z-index: 1000;
+
 }
 
 .navlink {
@@ -20,4 +21,12 @@
 .navlink.active {
     font-weight: bold;
     border-bottom: 2px solid white;
+}
+
+.dark-theme-button {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    height: 80%;
+
+    font-size: small;
 }

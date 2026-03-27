@@ -16,6 +16,7 @@ function NavigationBar() {
                     {route.name}
                 </NavLink>
             ))}
+
         </nav>
     )
 }
