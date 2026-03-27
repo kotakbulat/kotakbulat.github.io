@@ -94,7 +94,10 @@
 
 .project-title {
     color: #ebebeb;
+}
 
+.project-title:hover {
+    color: #ff9d42;
 }
 
 .featured-projects {

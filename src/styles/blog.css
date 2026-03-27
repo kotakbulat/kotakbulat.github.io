@@ -94,7 +94,10 @@
 
 .article-title {
     color: #ebebeb;
+}
 
+.article-title:hover {
+    color: #ff9d42;
 }
 
 .featured-posts {
